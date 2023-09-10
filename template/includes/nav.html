@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" hx-get="/" hx-target="#main" style="font-size:20px; font-weight: bold; text-decoration: none;">Todo List Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a {% if request.path == '/': %} class="nav-link active" {% else %} class="nav-link" {% endif %}  aria-current="page" hx-get="/" hx-target='#main'>Add Todos</a>
+          </li>
+          <li class="nav-item">
+            <a {% if request.path  == '/get_todos': %} class="nav-link active" {% else %} class="nav-link" {% endif %} hx-get="/get_todos" hx-target='#main'>List of Todos</a>
+          </li>
+          <li class="nav-item">
+            <a {% if request.path  == '/get_archive_todos': %} class="nav-link active" {% else %} class="nav-link" {% endif %} hx-get="/get_archive_todos" hx-target='#main'>Archive</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+</nav>
