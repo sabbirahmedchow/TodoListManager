@@ -2,7 +2,8 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from db import save_todos, get_todo_list, delete_todo, get_archive_todos
+
+from db import save_todos, get_todo_list, delete_todo, get_archive_todos, get_datewise_todos
 
 app = FastAPI()
 
@@ -30,7 +31,7 @@ async def add_todo(request: Request, todo: str = Form(...), todo_date: str = For
 async def get_todos(request: Request):
     try:
         todos = get_todo_list()
-        return templates.TemplateResponse("todo_list.html", {"request": request, "todos": todos, "title": "All Active Todos", "status": 1})
+        return templates.TemplateResponse("todo_list.html", {"request": request, "todos": todos, "title": "Todo List of Today", "status": 1})
     except Exception as e:
         return templates.TemplateResponse("todo_list.html", {"request": request, "message": e})
 
@@ -52,12 +53,12 @@ async def get_archived_todos(request: Request):
         return templates.TemplateResponse("todo_list.html", {"request": request, "message": e}) 
 
 @app.get("/get_todos_by_day", response_class=HTMLResponse) 
-async def get_todos_by_date(request: Request, q: str = None):
+async def get_todos_by_date(request: Request, date: str = None):
     try:
-        todos_by_date = get_datewise_todos(q)
-        return templates.TemplateResponse("todo_list.html", {"request": request, "todos": todos, "title": "Archived Todos", "status": 0})
+        todos_by_date = get_datewise_todos(date)
+        return templates.TemplateResponse("includes/card.html", {"request": request, "todos": todos_by_date, "title": f"Todo List of {date}", "status": 1})
     except Exception as e:
-        return templates.TemplateResponse("todo_list.html", {"request": request, "message": e})     
+        return templates.TemplateResponse("card.html", {"request": request, "message": e})     
 
 
 

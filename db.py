@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from bson import ObjectId
-
+from datetime import date
 
 class DBConnect:
     def __init__(self,host, port):
@@ -27,7 +27,10 @@ def save_todos(todo: str, todo_date: str):
 def get_todo_list():
     with DBConnect("localhost", 27017) as c:
         p = c.conn.todos.todo
-        list_todo = list(p.find({"status": 1}).sort([('$natural',-1)])) #get the latest item first
+        date1 = str(date.today())
+        list_todo = list(p.find({"date": date1, "status": 1}).sort([('$natural',-1)])) #get the latest item first
+        
+        
         return list_todo
     
 def delete_todo(id: str):
@@ -41,7 +44,13 @@ def get_archive_todos():
     with DBConnect("localhost", 27017) as c:
         p = c.conn.todos.todo
         arch_todo = list(p.find({"status": 0}))
-        return arch_todo        
+        return arch_todo     
+
+def get_datewise_todos(q):
+    with DBConnect("localhost", 27017) as c:
+        p = c.conn.todos.todo
+        list_todo = list(p.find({"date": q, "status": 1}).sort([('$natural',-1)])) #get the latest item first
+        return list_todo       
 
 
 
