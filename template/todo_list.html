@@ -20,24 +20,29 @@
                 <div class="card-body">
                    <table class="table table-striped table-hover">
                      <tbody hx-confirm="Are you sure?" hx-target="closest tr" hx-swap="outerHTML swap:1s">
+                      {% if todos is defined and todos|count > 0 %}  
                         {% for todo in todos:%}
-                          {% if todo.todo != None: %}
-                              <tr><td class="todo-list">{{ todo.todo}}</td>
-                                  {% if status == 1: %} 
-                                      <td class="todo-list"><a hx-delete="/delete_todo/{{todo._id}}"><i class="fa-solid fa-trash"></i></a></td>
-                                  {% else %}
-                                      <td class="todo-list"><a hx-get="/?q={{todo.todo}}" hx-target="#main" title="Add again"><i class="fa-regular fa-square-plus"></i></a></td> 
-                                  {% endif %}      
-                              </tr>
-                              {% else %} 
-                                <tr><td>No Todos Found</td></tr>
-                          {% endif %}    
+                                <tr><td class="todo-list">{{ todo.todo}}</td>
+                                    {% if status == 1: %} 
+                                        <td class="todo-list">
+                                          <a hx-get="/?todo_id={{todo._id}}&date={{todo.date}}&q={{todo.todo}}" hx-target="#main" title="Edit"><i class="fa-solid fa-square-pen fa-8xs"></i></a>
+                                        </td>
+                                        <td class="todo-list">
+                                          <a hx-delete="/delete_todo/{{todo.date}}/{{todo._id}}" hx-target="#changeCard" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    {% else %}
+                                        <td class="todo-list"><a hx-get="/?q={{todo.todo}}" hx-target="#main" title="Add again"><i class="fa-regular fa-square-plus"></i></a></td> 
+                                    {% endif %}      
+                                </tr>
                         {% endfor %} 
+                      {% else %} 
+                        <tr><td><b>No Todos Found</b></td></tr>
+                      {% endif %}      
                      </tbody>
                     </table>
                 </div>
               </div>
-            
+              
           </div>
         </div>  
     </div>    

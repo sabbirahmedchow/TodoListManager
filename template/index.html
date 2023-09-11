@@ -12,7 +12,11 @@
         <div class="row">
           <div class="col">
             <div class="card">
+              {% if not q or not date %}
                 <h5 class="card-header">Add Todo</h5>
+              {% else %}  
+                <h5 class="card-header">Update Todo</h5>
+              {% endif %}  
                 <div class="card-body">
                     <form method="post" hx-post="/add_todo" hx-target='#main' autocomplete="off">
                         
@@ -23,9 +27,15 @@
                         </div>
                         <div class="mb-3">
                           <label for="input_from">Select Date</label>
-                          <input type="text" name="todo_date" class="form-control" id="input" required> 
+                          <input type="text" value="{{date}}" name="todo_date" class="form-control" id="input" required> 
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Todo</button>
+                        {% if not q or not date %}
+                          <button type="submit" class="btn btn-primary">Add Todo</button>
+                        {% else %}
+                          <input type="hidden" name="todo_id" value="{{todo_id}}" />
+                          <button type="submit" class="btn btn-primary">Edit Todo</button>
+                        {% endif %}   
+
                     </form>
                 </div>
               </div
