@@ -29,10 +29,11 @@
                           <label for="input_from">Select Date</label>
                           <input type="text" value="{{date}}" name="todo_date" class="form-control" id="input" required> 
                         </div>
+                        <input type="hidden" name="todo_id" value="{{todo_id}}" />
                         {% if not q or not date %}
                           <button type="submit" class="btn btn-primary">Add Todo</button>
                         {% else %}
-                          <input type="hidden" name="todo_id" value="{{todo_id}}" />
+                          
                           <button type="submit" class="btn btn-primary">Edit Todo</button>
                         {% endif %}   
 

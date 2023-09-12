@@ -31,7 +31,7 @@
                                           <a hx-delete="/delete_todo/{{todo.date}}/{{todo._id}}" hx-target="#changeCard" title="Delete"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     {% else %}
-                                        <td class="todo-list"><a hx-get="/?q={{todo.todo}}" hx-target="#main" title="Add again"><i class="fa-regular fa-square-plus"></i></a></td> 
+                                        <td class="todo-list"><a hx-get="/?todo_id={{todo._id}}&q={{todo.todo}}" hx-target="#main" title="Add again"><i class="fa-regular fa-square-plus"></i></a></td> 
                                     {% endif %}      
                                 </tr>
                         {% endfor %} 
