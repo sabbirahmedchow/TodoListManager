@@ -3,7 +3,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import Optional
-
 from db import save_todos, get_todo_list, delete_todo, get_archive_todos, get_datewise_todos
 
 app = FastAPI()
@@ -11,7 +10,6 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="template")
-
 
 # This is the main route to show the add todo page with the required parameters based on add, update or archive a todo.
 @app.get("/", response_class=HTMLResponse)

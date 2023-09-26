@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 from datetime import date
 
-HOST = "localhost"
+HOST = "localhost" #change the host based on docker container 
 PORT = 27017
 
 # Let us create a context manager for the database.
