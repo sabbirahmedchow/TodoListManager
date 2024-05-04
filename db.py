@@ -48,7 +48,7 @@ def get_todo_list():
         return list_todo
     
 # This function is used to update the status of a todo rather than deleting it. After updating, the list of 
-# todos by date is returned ro regenerate the list.
+# todos by date is returned to regenerate the list.
 def delete_todo(id: str, date: str):
     with DBConnect(HOST, PORT) as c:
         p = c.conn.todos.todo
